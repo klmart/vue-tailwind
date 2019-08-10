@@ -132,6 +132,63 @@ module.exports = {
 }
 ```
 
+### Use with Nuxt.js:
+Install vue-tailwind
+```js
+npm install vue-tailwind --save
+# or
+yarn add vue-tailwind
+```
+
+Create plugins/vue-tailwind.js
+```js
+import Vue from 'vue'
+import VueTailwind from 'vue-tailwind'
+
+Vue.use(VueTailwind);
+```
+
+Install https://tailwindcss.com/
+```js
+npm install tailwindcss --save-dev
+# or
+yarn add -D tailwindcss
+```
+Create tailwind.config.js
+```js
+module.exports = {
+  prefix: '',
+  important: false,
+  separator: ':',
+  theme: {},
+  variants: {},
+  plugins: [],
+}
+```
+Create /assets/css/tailwind.css
+```js
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+```
+Configure postcss in nuxt.config.js
+```js
+const path     = require('path');
+module.exports = {
+  css:     ['@/assets/css/tailwind.css'],
+  build:   {
+    postcss: {
+      plugins: {
+        tailwindcss: path.resolve(__dirname, './tailwind.config.js')
+      }
+    }
+  },
+  plugins: [
+    '~plugins/vue-tailwind',
+  ]
+};
+```
+
 ## What's next?
 
 The idea is to create a big set of common components using the same philosophy: Configurable elements that could be adapted to your project style:
